@@ -93,15 +93,35 @@ window.addEventListener('resize', () => {
   resizeT = setTimeout(alignLine2ToApostrophe, 120);
 });
 
-// ---- CONTACT FORM ----
-// This is a static site with no backend yet, so the form currently just
-// prevents the default page reload. Wire it up to a form service (Formspree,
-// Resend, a serverless function, etc.) when you're ready to receive messages.
+// ---- CONTACT FORM: submit via fetch to Formspree, no page reload ----
 const contactForm = document.querySelector('#contact form');
 if (contactForm) {
-  contactForm.addEventListener('submit', (e) => {
+  contactForm.addEventListener('submit', async (e) => {
     e.preventDefault();
-    // TODO: send form data somewhere real.
-    console.log('Form submitted (not yet wired to a backend).');
+    const btn = contactForm.querySelector('.send-btn');
+    const originalText = btn.textContent;
+    btn.textContent = 'SENDING...';
+    btn.disabled = true;
+
+    try {
+      const res = await fetch(contactForm.action, {
+        method: 'POST',
+        body: new FormData(contactForm),
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        btn.textContent = 'MESSAGE SENT ✓';
+        contactForm.reset();
+      } else {
+        btn.textContent = 'SOMETHING WENT WRONG';
+      }
+    } catch (err) {
+      btn.textContent = 'SOMETHING WENT WRONG';
+    } finally {
+      setTimeout(() => {
+        btn.textContent = originalText;
+        btn.disabled = false;
+      }, 3000);
+    }
   });
 }
