@@ -456,25 +456,11 @@ section {
 }
 .about-img {
   aspect-ratio: 4/5;
-  background:
-    repeating-linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.035) 0 2px,
-      transparent 2px 26px
-    ),
-    linear-gradient(180deg, #232320, #0a0a09 75%);
+  width: 100%;
+  display: block;
+  object-fit: cover;
   border: 1px solid var(--line);
   position: relative;
-}
-.about-img::after {
-  content: "PORTRAIT PLACEHOLDER";
-  position: absolute;
-  bottom: 20px;
-  left: 20px;
-  font-family: "IBM Plex Mono", monospace;
-  font-size: 11px;
-  letter-spacing: 0.08em;
-  color: var(--faint);
 }
 .about-copy {
   padding: 0 0 0 64px;
