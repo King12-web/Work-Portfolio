@@ -454,13 +454,27 @@ section {
   gap: 0;
   margin: -130px 0 0;
 }
-.about-img{
+.about-img {
   aspect-ratio: 4/5;
-  width: 100%;
-  display: block;
-  object-fit: cover;
-  border:1px solid var(--line);
-  position:relative;
+  background:
+    repeating-linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.035) 0 2px,
+      transparent 2px 26px
+    ),
+    linear-gradient(180deg, #232320, #0a0a09 75%);
+  border: 1px solid var(--line);
+  position: relative;
+}
+.about-img::after {
+  content: "PORTRAIT PLACEHOLDER";
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  color: var(--faint);
 }
 .about-copy {
   padding: 0 0 0 64px;
@@ -675,4 +689,45 @@ footer {
   letter-spacing: 0.06em;
   flex-wrap: wrap;
   gap: 10px;
+}
+
+/* ===== MOBILE-ONLY FIXES ===== */
+@media (max-width: 640px) {
+  /* 1. center the "Full-Stack Web Developer" tagline on the hero */
+  .tagline {
+    justify-content: center;
+  }
+
+  /* 2. make the project "view" arrow an obvious, tappable button instead of a faint glyph */
+  .work-row .expand {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: fit-content;
+    margin: 6px 28px 28px;
+    padding: 12px 20px;
+    border-radius: 999px;
+    color: var(--lime);
+    border: 1px solid var(--lime);
+    font-size: 12px;
+  }
+  .work-row .expand::before {
+    content: "VIEW PROJECT";
+    font-family: "IBM Plex Mono", monospace;
+    letter-spacing: 0.08em;
+  }
+
+  /* 3. tighten the gap between Projects and About */
+  #about {
+    padding-top: 56px;
+  }
+
+  /* 4. tighten the gap between Skills & Stack and Let's Talk */
+  #skills {
+    padding-bottom: 60px;
+  }
+  #contact {
+    padding-top: 56px;
+  }
 }
